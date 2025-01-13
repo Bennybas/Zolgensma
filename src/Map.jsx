@@ -63,13 +63,13 @@ const StateHealthcareMap = () => {
 
   // Color scale based on adoption rate
   const getStateColor = (stateData) => {
-    if (!stateData) return "#E6EAF0"; // Neutral light gray for undefined states
+    if (!stateData) return "#F0F2F5"; // Lighter, more modern gray for undefined states
     
     const rate = stateData.adoptionRate;
-    if (rate >= 75) return "#1E824C";  // Deep green for high adoption rates
-    if (rate >= 70) return "#3498DB";  // Rich blue for moderate-high rates
-    if (rate >= 65) return "#F1C40F";  // Bright yellow for moderate rates
-    return "#E74C3C";                  // Vibrant red for low adoption rates
+    if (rate >= 75) return "#34A853";  // Google-inspired green, more balanced
+    if (rate >= 70) return "#4285F4";  // Google-inspired blue, better contrast
+    if (rate >= 65) return "#FBBC05";  // Warmer, less harsh yellow
+    return "#EA4335";                  // Slightly muted red, less aggressive
 };
 
 
