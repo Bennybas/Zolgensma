@@ -63,14 +63,15 @@ const StateHealthcareMap = () => {
 
   // Color scale based on adoption rate
   const getStateColor = (stateData) => {
-    if (!stateData) return "#F0F2F5"; // Lighter, more modern gray for undefined states
+    if (!stateData) return "#D1D8E0"; // Soft light gray for undefined states
     
     const rate = stateData.adoptionRate;
-    if (rate >= 75) return "#34A853";  // Google-inspired green, more balanced
-    if (rate >= 70) return "#4285F4";  // Google-inspired blue, better contrast
-    if (rate >= 65) return "#FBBC05";  // Warmer, less harsh yellow
-    return "#EA4335";                  // Slightly muted red, less aggressive
+    if (rate >= 75) return "#6CBF84";  // Soft mint green, calming and fresh
+    if (rate >= 70) return "#4C9F70";  // Earthy green, subtle and professional
+    if (rate >= 65) return "#F5C244";  // Warm golden yellow, inviting but not too bright
+    return "#F08D49";                  // Muted coral, gentle and less intense than red
 };
+
 
 
   const handleMouseEnter = (geo) => {
@@ -101,22 +102,23 @@ const StateHealthcareMap = () => {
 
       <div className="flex justify-center items-center space-x-4 mb-4">
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#1E824C] mr-2"></div>
+          <div className="w-4 h-4 bg-[#6CBF84] mr-2"></div>
           <span>Adoption Rate: 75%+</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#3498DB] mr-2"></div>
+          <div className="w-4 h-4 bg-[#4C9F70] mr-2"></div>
           <span>Adoption Rate: 70-74%</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#F1C40F] mr-2"></div>
+          <div className="w-4 h-4 bg-[#F5C244] mr-2"></div>
           <span>Adoption Rate: 65-69%</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#E74C3C] mr-2"></div>
+          <div className="w-4 h-4 bg-[#F08D49] mr-2"></div>
           <span>Adoption Rate: &lt;65%</span>
         </div>
       </div>
+
 
 
       <div className="relative">

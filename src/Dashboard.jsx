@@ -116,12 +116,32 @@ function ZolgensmaDashboard() {
 
       {/* Main Content */}
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="bg-white p-1 rounded-lg">
-          <TabsTrigger value="overview" className="px-4 py-2">Market Overview</TabsTrigger>
-          <TabsTrigger value="hcp" className="px-4 py-2">HCP Analytics</TabsTrigger>
-          <TabsTrigger value="accounts" className="px-4 py-2">Account Analytics</TabsTrigger>
-          <TabsTrigger value="network" className="px-4 py-2">Referral Network</TabsTrigger>
-        </TabsList>
+      <TabsList className="bg-gray-50 p-1.5 rounded-xl grid grid-cols-4 gap-1">
+        <TabsTrigger 
+          value="overview" 
+          className="rounded-lg px-4 py-2.5 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm hover:bg-gray-100 transition-colors"
+        >
+          Market Overview
+        </TabsTrigger>
+        <TabsTrigger 
+          value="hcp" 
+          className="rounded-lg px-4 py-2.5 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm hover:bg-gray-100 transition-colors"
+        >
+          HCP Analytics
+        </TabsTrigger>
+        <TabsTrigger 
+          value="accounts" 
+          className="rounded-lg px-4 py-2.5 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm hover:bg-gray-100 transition-colors"
+        >
+          Account Analytics
+        </TabsTrigger>
+        <TabsTrigger 
+          value="network" 
+          className="rounded-lg px-4 py-2.5 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm hover:bg-gray-100 transition-colors"
+        >
+          Referral Network
+        </TabsTrigger>
+      </TabsList>
 
         {/* Market Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
