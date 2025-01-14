@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { LineChart, Line, PieChart, Pie, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell, ComposedChart, Bar } from 'recharts';
 import { Search, Filter, Users, Activity, Hospital, Network, UserPlus, Building2, Target, ArrowUpRight } from 'lucide-react';
 import RegionalMap from './Map';
+import ZolgensmaSankey from './Zolgensma';
 
 const KPICard = ({ title, value, icon: Icon, trend }) => (
   <div className="bg-white rounded-lg p-6 shadow-sm">
@@ -145,7 +146,7 @@ function ZolgensmaDashboard() {
 
         {/* Market Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
-          <RegionalMap />
+          
           <div className="bg-white rounded-lg p-6">
             <h2 className="text-lg font-semibold mb-4">Treatment Distribution Trend</h2>
             <div className="h-80">
@@ -225,11 +226,12 @@ function ZolgensmaDashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
+            
           </div>
 
           {/* Referral Metrics */}
-          <div className="grid grid-cols-3 gap-6">
-            <div className="bg-blue-50 p-6 rounded-lg">
+          <div className="flex flex-row gap-6 items-start">
+            <div className="bg-blue-50 p-6 rounded-lg w-1/3">
               <h3 className="text-lg font-semibold mb-4">Referral Metrics</h3>
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded-lg">
@@ -246,7 +248,12 @@ function ZolgensmaDashboard() {
                 </div>
               </div>
             </div>
+            <div className="w-2/3">
+              <RegionalMap />
+            </div>
           </div>
+
+          
         </TabsContent>
 
         {/* Account Analytics Tab */}
@@ -327,7 +334,7 @@ function ZolgensmaDashboard() {
 
         {/* Referral Network Tab */}
         <TabsContent value="network" className="space-y-6">
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-6">
             <div className="bg-blue-50 p-6 rounded-lg">
               <h4 className="font-semibold mb-4">Network Metrics</h4>
               <div className="space-y-3">
@@ -363,17 +370,17 @@ function ZolgensmaDashboard() {
                 </div>
               </div>
             </div>
-
-            <div className="bg-white rounded-lg p-6">
-              <h4 className="font-semibold mb-4">Referral Network Visualization</h4>
-              <div className="h-64">
-                {/* Placeholder for network visualization */}
-                <div className="flex items-center justify-center h-full text-gray-400">
-                  Network graph goes here
-                </div>
-              </div>
-            </div>
+            
           </div>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-white rounded-lg p-6">
+              
+              <ZolgensmaSankey />
+
+            </div>
+
+            </div>
+          
         </TabsContent>
       </Tabs>
     </div>

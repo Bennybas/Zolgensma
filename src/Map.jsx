@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
-const StateHealthcareMap = () => {
+const RegionalMap = () => {
   const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
   const [tooltipContent, setTooltipContent] = useState("");
+  const [hcpFilter, setHcpFilter] = useState(0);
 
   // Sample healthcare data for each state (you can replace with actual data)
   const healthcareData = {
@@ -59,25 +60,28 @@ const StateHealthcareMap = () => {
     "55": { abbr: "WI", patients: 198, hcps: 76, adoptionRate: 72 },
     "56": { abbr: "WY", patients: 29, hcps: 13, adoptionRate: 63 },
   };
-  
+
+  const filteredData = Object.keys(healthcareData)
+    .filter((key) => healthcareData[key].hcps > hcpFilter)
+    .reduce((acc, key) => {
+      acc[key] = healthcareData[key];
+      return acc;
+    }, {});
 
   // Color scale based on adoption rate
   const getStateColor = (stateData) => {
-    if (!stateData) return "#D1D8E0"; // Soft light gray for undefined states
-    
+    if (!stateData) return "#D1D8E0";
     const rate = stateData.adoptionRate;
-    if (rate >= 75) return "#6CBF84";  // Soft mint green, calming and fresh
-    if (rate >= 70) return "#4C9F70";  // Earthy green, subtle and professional
-    if (rate >= 65) return "#F5C244";  // Warm golden yellow, inviting but not too bright
-    return "#F08D49";                  // Muted coral, gentle and less intense than red
-};
-
-
+    if (rate >= 75) return "#6CBF84";
+    if (rate >= 70) return "#4C9F70";
+    if (rate >= 65) return "#F5C244";
+    return "#F08D49";
+  };
 
   const handleMouseEnter = (geo) => {
     const stateId = geo.id;
     const stateData = healthcareData[stateId];
-    
+
     if (stateData) {
       setTooltipContent(`
         State: ${stateData.abbr}
@@ -94,39 +98,53 @@ const StateHealthcareMap = () => {
     setTooltipContent("");
   };
 
+  const handleFilterChange = (e) => {
+    setHcpFilter(parseInt(e.target.value));
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-bold text-center mb-4">
         SMA Healthcare Statistics by State
       </h2>
 
-      <div className="flex justify-center items-center space-x-4 mb-4">
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#6CBF84] mr-2"></div>
-          <span>Adoption Rate: 75%+</span>
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex space-x-4">
+          <div className="flex items-center">
+            <div className="w-4 h-4 bg-[#6CBF84] mr-2"></div>
+            <span>Adoption Rate: 75%+</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-4 h-4 bg-[#4C9F70] mr-2"></div>
+            <span>Adoption Rate: 70-74%</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-4 h-4 bg-[#F5C244] mr-2"></div>
+            <span>Adoption Rate: 65-69%</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-4 h-4 bg-[#F08D49] mr-2"></div>
+            <span>Adoption Rate: &lt;65%</span>
+          </div>
         </div>
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#4C9F70] mr-2"></div>
-          <span>Adoption Rate: 70-74%</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#F5C244] mr-2"></div>
-          <span>Adoption Rate: 65-69%</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-[#F08D49] mr-2"></div>
-          <span>Adoption Rate: &lt;65%</span>
-        </div>
+
+        <select
+          onChange={handleFilterChange}
+          className="p-2 border rounded shadow"
+        >
+          <option value="0">Show All</option>
+          <option value="30">HCPs above 30</option>
+          <option value="50">HCPs above 50</option>
+          <option value="100">HCPs above 100</option>
+        </select>
       </div>
-
-
 
       <div className="relative">
         <ComposableMap projection="geoAlbersUsa" className="w-full h-[400px]">
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const stateData = healthcareData[geo.id];
+                const stateData = filteredData[geo.id];
                 const stateColor = getStateColor(stateData);
 
                 return (
@@ -138,15 +156,15 @@ const StateHealthcareMap = () => {
                     strokeWidth={0.5}
                     style={{
                       default: { outline: "none" },
-                      hover: { 
-                        fill: "#3b82f6", 
+                      hover: {
+                        fill: "#3b82f6",
                         outline: "none",
-                        opacity: 0.8 
+                        opacity: 0.8,
                       },
-                      pressed: { 
-                        fill: "#3b82f6", 
+                      pressed: {
+                        fill: "#3b82f6",
                         outline: "none",
-                        opacity: 0.8 
+                        opacity: 0.8,
                       },
                     }}
                     onMouseEnter={() => handleMouseEnter(geo)}
@@ -168,4 +186,4 @@ const StateHealthcareMap = () => {
   );
 };
 
-export default StateHealthcareMap;
+export default RegionalMap;
